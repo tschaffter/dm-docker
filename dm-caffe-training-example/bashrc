@@ -1,0 +1,2 @@
+export LD_LIBRARY_PATH=/usr/local/cuda-6.5/lib64:/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+ln /dev/null /dev/raw1394
