@@ -133,7 +133,7 @@ RUN pip install sklearn
 
 # Copy files
 
-echo "Copying files..."
+RUN echo "Copying files..."
 COPY dicom_to_jpeg.py /dicom_to_jpeg.py
 COPY generate_labels.py /generate_labels.py
 COPY generate_label_files.py /generate_label_files.py
@@ -142,11 +142,11 @@ COPY create_mean_image.sh /create_mean_image.sh
 COPY preprocess.sh /preprocess.sh
 COPY bashrc /.bashrc
 COPY caffe-ld-so.conf /caffe-ld-so.conf
-echo "Files copied."
+RUN echo "Files copied."
 
 # Set permissions so server can execute within Docker container
 
-echo "Setting file permissions..."
+RUN echo "Setting file permissions..."
 RUN chmod 777 /dicom_to_jpeg.py
 RUN chmod 777 /generate_labels.py
 RUN chmod 777 /generate_label_files.py
@@ -155,5 +155,5 @@ RUN chmod 777 /create_mean_image.sh
 RUN chmod 777 /preprocess.sh
 RUN chmod 777 /.bashrc
 RUN chmod 777 /caffe-ld-so.conf
-echo "File permissions set."
+RUN echo "File permissions set."
 
