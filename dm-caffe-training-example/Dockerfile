@@ -133,23 +133,23 @@ RUN pip install sklearn
 
 # Copy files
 
-echo "Copying files..."
+RUN echo "Copying files..."
 COPY deploy.prototxt /deploy.prototxt
 COPY solver.prototxt /solver.prototxt
 COPY train_val.prototxt /train_val.prototxt
 COPY train.sh /train.sh
 COPY bashrc /.bashrc
 COPY caffe-ld-so.conf /caffe-ld-so.conf
-echo "Files copied."
+RUN echo "Files copied."
 
 # Set permissions so server can execute within Docker container
 
-echo "Setting file permissions..."
+RUN echo "Setting file permissions..."
 RUN chmod 777 /deploy.prototxt
 RUN chmod 777 /solver.prototxt
 RUN chmod 777 /train_val.prototxt
 RUN chmod 777 /train.sh
 RUN chmod 777 /.bashrc
 RUN chmod 777 /caffe-ld-so.conf
-echo "File permissions set."
+RUN echo "File permissions set."
 
