@@ -32,8 +32,8 @@ The training Docker container image contains the following files:
  - **caffe-ld-so.conf**: see above
  - **deploy.prototxt**: CNN network definition that Caffe uses to test your trained model. Visit the [Caffe homepage](http://caffe.berkeleyvision.org/) for more information.
  - **solver.prototxt**: a configuration file used to tell Caffe how you want the network trained and to set your model's hyperparameters. Visit the [Caffe homepage](http://caffe.berkeleyvision.org/) for more information.
- - **train.sh**: a shell script the starts the training process.
- - **train_val.prototxt**: your model's network definition. Visit the [Caffe homepage](http://caffe.berkeleyvision.org/) for more information. ***Please examine this file carefully since it specifies which volumes are mounted and how to access the challenge data.***
+ - **train.sh**: a shell script the starts the training process. ***Please examine this file carefully since it specifies which volumes are mounted and how to access the challenge data.***
+ - **train_val.prototxt**: your model's network definition. Visit the [Caffe homepage](http://caffe.berkeleyvision.org/) for more information.
 
 ----------
 
