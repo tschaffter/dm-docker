@@ -86,4 +86,4 @@ Click on the Files tab and click “Upload or Link to File”. Select the file (
 
 Now submit to the challenge as described earlier. Note that in this case you are not submitting a Docker image but rather the file referencing the two images.
 
-That's all there's to it. If you get stuck, you can refer to the more comprehensive tutorial [here](https://www.synapse.org/#!Synapse:syn4224222/wiki/401759). If you're still stuck, you can post a message on the discussion forum.
+That's all there's to it. If you get stuck, you can refer to the more comprehensive tutorial [here](https://www.synapse.org/#!Synapse:syn4224222/wiki/401759). If you're still stuck, you can post a message on the [discussion forum] (https://www.synapse.org/#!Synapse:syn4224222/discussion/default).
