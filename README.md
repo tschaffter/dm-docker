@@ -54,13 +54,9 @@ This is intended to be a quick guide to build and submit your Docker container i
 
 > `cd ~/training`
 
-> `docker build -t docker.synapse.org/syn123456/training .`
+> `docker build -t docker.synapse.org/syn123456/training .` # Replace ‘syn123456' with your own project Id
 
-> (Replace ‘syn123456' with your own project Id.)
-
-> `docker login docker.synapse.org` 
-
-> (You will be prompted for your Synapse user name and password.)
+> `docker login docker.synapse.org` # You will be prompted for your Synapse user name and password
 
 > `docker push docker.synapse.org/syn123456/preprocessing`
 
