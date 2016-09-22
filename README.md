@@ -49,13 +49,21 @@ This is intended to be a quick guide to build and submit your Docker container i
  5. On a machine having the docker tools installed, run the following commands:
 
 > `cd ~/preprocessing`
+
 > `docker build -t docker.synapse.org/syn123456/preprocessing .`
+
 > `cd ~/training`
+
 > `docker build -t docker.synapse.org/syn123456/training .`
+
 > (Replace ‘syn123456' with your own project Id.)
+
 > `docker login docker.synapse.org` 
+
 > (You will be prompted for your Synapse user name and password.)
+
 > `docker push docker.synapse.org/syn123456/preprocessing`
+
 > `docker push docker.synapse.org/syn123456/training`
 
 You now have Docker container images in Synapse to use in the challenge. To learn more about Docker, including how to install the necessary tools on your machine, see [https://docs.docker.com](https://docs.docker.com). We provide 'dockerized' models in various frameworks along with links to source code [here](https://www.synapse.org/#!Synapse:syn4224222/docker/).
