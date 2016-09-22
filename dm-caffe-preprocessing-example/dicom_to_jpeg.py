@@ -23,7 +23,6 @@ def dcm_to_jpg(dcm_file, jpg_file):
 	"""
 	IM_SIZE = 227
 	ds = dicom.read_file(dcm_file)
-        a1 = np.zeros(shape=(int(ds.Rows), int(ds.Columns)))
         a1 = ds.pixel_array
         im = resize(a1, (IM_SIZE, IM_SIZE))
         im = bytescale(im)
