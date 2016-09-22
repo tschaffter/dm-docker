@@ -18,7 +18,7 @@ The preprocessing Docker container image contains the following files:
  - **bashrc**: you put commands here to set up the shell for use in your particular (Docker container) environment, or to customize things to your preferences. A common thing to put in .bashrc are aliases that you want to always be available.
  - **caffe-ld-so.conf**: specifies the location for `/opt/caffe/.build_release/lib`
  - **create_lmdb.sh**: a shell script for creating the training and validation LMDB files (using image data and ground-truth labels) that are used to train and validate your Caffe model.
- - **create_mean_image.sh**: a shell script for creating the mean image file (created from your input image data) that is used by your Caffe model.
+ - **create_mean_image.sh**: a shell script for creating the mean image file (created using your input image data) that is used by your Caffe model.
  - **dicom_to_jpeg.py**: a Python script that converts batches of DICOM images to JPEGs
  - **generate_label_files.py**: a Python script that generates ground-truth labels (1s and 0s) from the metadata and crosswalk files, which are available in `/metadata` when your container is run on the host machine. The output file is `labels.txt`.
  - **generate_labels.py**: a Python script that partitions the `labels.txt` file into `train.txt` and `val.txt` for training and validation, respectively. These two files are used, together with the image data, to create your training and validation LMDB files.
