@@ -33,13 +33,12 @@ with open(METADATA_FILE, 'rb') as metadata_f:
 with open(CROSSWALK_FILE, 'rb') as crosswalk_f, \
      open(LABELS_FILE, 'wb') as labels_f:
     reader = csv.DictReader(crosswalk_f, delimiter = SPLIT_DELIMITER)
-    writer = csv.writer(labels_f, delimiter = SPLIT_DELIMITER)
     for row in reader:
         key = row['subjectId'] + '_' + \
               row['examIndex'] + '_' + \
               row['laterality']
         label = metadata_ht[key]
-        writer.writerow((row['filename'], label))
+        labels_f.write(row['filename'] + ' ' + label + '\n')
 
 print 'labels.txt generated.'
     
