@@ -1,7 +1,7 @@
 #!/usr/bin/env
 
 #################################################################################
-# This script generates labels.txt from the metadata and crosswalk files.	    #
+# This script generates labels.txt from the metadata and crosswalk files.       #
 # Ground truth labels (1=cancer, 0=no cancer) are breast level labels.          #
 # Author:       syohan@au1.ibm.com                                              #
 # Last updated: 25SEP16                                                         #
