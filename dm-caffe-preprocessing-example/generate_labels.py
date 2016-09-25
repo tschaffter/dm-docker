@@ -38,7 +38,8 @@ with open(CROSSWALK_FILE, 'rb') as crosswalk_f, \
               row['examIndex'] + '_' + \
               row['laterality']
         label = metadata_ht[key]
-        labels_f.write(row['filename'] + ' ' + label + '\n')
+        filename = row['filename'][:-3] + 'jpeg' # Change dcm to jpeg
+        labels_f.write(filename + ' ' + label + '\n')
 
 print 'labels.txt generated.'
     
