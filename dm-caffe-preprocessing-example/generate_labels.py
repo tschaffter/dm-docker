@@ -1,7 +1,7 @@
 #!/usr/bin/env
 
 #################################################################################
-# This script generates labels.tsv from the metadata and crosswalk files.	#
+# This script generates labels.txt from the metadata and crosswalk files.	    #
 # Ground truth labels (1=cancer, 0=no cancer) are breast level labels.          #
 # Author:       syohan@au1.ibm.com                                              #
 # Last updated: 25SEP16                                                         #
@@ -11,12 +11,12 @@ import csv
 
 CROSSWALK_FILE = '/metadata/images_crosswalk.tsv'
 METADATA_FILE = '/metadata/exams_metadata.tsv'
-LABELS_FILE = '/preprocessedData/labels/labels.tsv'
+LABELS_FILE = '/preprocessedData/labels/labels.txt'
 SPLIT_DELIMITER = '\t'
 metadata_ht = {}
 
-print 'Generating labels.tsv...'
-# load metadata_ht
+print 'Generating labels.txt...'
+# Load metadata_ht
 with open(METADATA_FILE, 'rb') as metadata_f:
     reader = csv.DictReader(metadata_f, delimiter = SPLIT_DELIMITER)
     for row in reader:
@@ -29,7 +29,7 @@ with open(METADATA_FILE, 'rb') as metadata_f:
         if keyR not in metadata_ht:
             metadata_ht[keyR] = row['cancerR']
 
-# generate labels
+# Generate labels
 with open(CROSSWALK_FILE, 'rb') as crosswalk_f, \
      open(LABELS_FILE, 'wb') as labels_f:
     reader = csv.DictReader(crosswalk_f, delimiter = SPLIT_DELIMITER)
@@ -41,5 +41,5 @@ with open(CROSSWALK_FILE, 'rb') as crosswalk_f, \
         label = metadata_ht[key]
         writer.writerow((row['filename'], label))
 
-print 'labels.tsv generated.'
+print 'labels.txt generated.'
     
