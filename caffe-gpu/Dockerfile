@@ -24,7 +24,8 @@ RUN yum update -y && yum install -y epel-release && \
     scipy \
     vim
 
-RUN pip install --upgrade pip pydicom
+RUN pip install --upgrade pip \
+    pydicom
 
 ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
