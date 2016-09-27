@@ -44,9 +44,9 @@ def generateImageLabels(images, metadata):
 
 
 if __name__ == '__main__':
-        examsMetadataFilename = sys.argv[1] 	# e.g. "/metadata/exams_metadata.tsv"
-	imagesCrosswalkFilename = sys.argv[2] 	# e.g. "/metadata/images_crosswalk.tsv"
-	labelsFilename = sys.argv[3] 		# e.g. "/preprocessedData/labels/labels.txt"
+        examsMetadataFilename = sys.argv[1]
+	imagesCrosswalkFilename = sys.argv[2]
+	labelsFilename = sys.argv[3]
 
 	# Read the label from the exams metadata
 	fields = ['subjectId', 'examIndex', 'cancerL', 'cancerR']

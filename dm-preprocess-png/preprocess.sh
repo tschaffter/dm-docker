@@ -6,18 +6,25 @@
 # - save to PNG format
 #
 # In addition, a labels file at the images levels is generated
-# using information from the exams metadata table (see generate_labels.py)
+# using information from the exams metadata table (see generate_labels.py).
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
 # Last update: 2016-09-27
 #!/bin/bash
 
-TRAIN_DIRECTORY="/trainingData"
-PP_DIRECTORY="/preprocessedData"
-PP_IMAGES_DIRECTORY="$PP_DIRECTORY/images"
+IMAGES_DIRECTORY="/trainingData"
+EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"
+IMAGES_CROSSWALK_FILENAME="/metadata/images_crosswalk.tsv"
 
-mkdir -p $PP_IMAGES_DIRECTORY
+PREPROCESS_DIRECTORY="/preprocessedData"
+PREPROCESS_IMAGES_DIRECTORY="$PREPROCESS_DIRECTORY/images"
+IMAGE_LABESL_FILENAME="$PREPROCESS_DIRECTORY/metadata/image_labels.txt"
 
-echo "Resizing and converting DICOM images to PNG format."
-find $TRAIN_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 500x500! $PP_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
-echo "$(find $PP_IMAGES_DIRECTORY -name "*.png" | wc -l) PNG images have been successfully saved to $PP_IMAGES_DIRECTORY/."
+mkdir -p $PREPROCESS_IMAGES_DIRECTORY
+
+echo "Resizing and converting $(find $IMAGES_DIRECTORY -name "*.dcm" | wc -l) DICOM images to PNG format"
+find $IMAGES_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 500x500! $PREPROCESS_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
+echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
+
+echo "Generating image labels to $IMAGE_LABESL_FILENAME"
+python generate_image_labels.py $EXAMS_METADATA_FILENAME $IMAGES_CROSSWALK_FILENAME $IMAGE_LABESL_FILENAME
