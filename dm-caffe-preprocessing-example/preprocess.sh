@@ -6,9 +6,9 @@
 
 # Create sub directories
 
-mkdir /preprocessedData/data
-mkdir /preprocessedData/labels
-mkdir /preprocessedData/lmdbs
+mkdir -p /preprocessedData/data
+mkdir -p /preprocessedData/labels
+mkdir -p /preprocessedData/lmdbs
 
 # Generate labels.txt (from exams_metadata.tsv and images_crosswalk.tsv)
 
