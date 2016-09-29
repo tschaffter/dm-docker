@@ -12,7 +12,7 @@
 # Train an AlexNet model using preprocessed data (available in /preprocessedData)
 # and pipe training output to a log file
 
-export TOOLS=./build/tools
+export TOOLS=/opt/caffe/.build_release/tools
 export LOG=/modelState/train.log
 export MODEL=/solver.prototxt
 
