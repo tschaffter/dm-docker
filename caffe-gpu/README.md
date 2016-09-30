@@ -2,5 +2,5 @@
 ## Overview
 
 
-## Authors
+## Contacts
 Thomas Schaffter (thomas.schaff...@gmail.com)
