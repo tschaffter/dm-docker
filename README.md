@@ -1,2 +1,2 @@
 # dm-docker
-plop
+Add general information and a brief description of each Docker image.
