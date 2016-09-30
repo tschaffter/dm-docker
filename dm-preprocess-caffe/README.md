@@ -10,5 +10,5 @@ Tasks:
 - generate mean image for background substraction
 
 ## Contacts
-Thomas Schaffter (thomas.schaffter@gmail.com)
+Thomas Schaffter (thomas.schaffter@gmail.com) 
 Shivanthan Yohanandan (syohan@au1.ibm.com)
