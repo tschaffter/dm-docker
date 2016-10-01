@@ -41,6 +41,7 @@ python generate_train_val_sets.py $EXAMS_METADATA_FILENAME \
 	$TRAIN_SIZE \
 	$RAND_SEED
 
+exit 0
 echo "Generating image labels for train"
 python generate_image_labels.py $PREPROCESS_METADATA_DIRECTORY/exams_metadata_train.tsv \
 	$PREPROCESS_METADATA_DIRECTORY/images_crosswalk_train.tsv \

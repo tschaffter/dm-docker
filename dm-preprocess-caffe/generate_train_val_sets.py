@@ -23,7 +23,6 @@ import sys
 import os
 import random
 
-
 if __name__ == '__main__':
         examsMetadataFilename = sys.argv[1]
 	imagesCrosswalkFilename = sys.argv[2]
