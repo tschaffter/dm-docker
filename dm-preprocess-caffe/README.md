@@ -18,7 +18,7 @@ Tasks:
 - /preprocessedData/metadata/image_labels_val.txt
 - /preprocessedData/lmdb/train
 - /preprocessedData/lmdb/val
-- /preprocessedData/lmdb/train_mean.binaryproto
+- /preprocessedData/mean_train.binaryproto
 
 ## Contacts
 Thomas Schaffter (thomas.schaffter@gmail.com)  

@@ -3,7 +3,7 @@
 # by the deep learning framework Caffe.
 #
 # Tasks:
-# - resize the training images and saves them in PNG format
+# - resize the training images to 227x227 and saves them in PNG format
 # - split the exams metadata and images crosswalk tables into
 #   a training and validation sets (70% of the cancer positive
 #   and negative subjects are in the training set)
@@ -30,9 +30,9 @@ mkdir -p $PREPROCESS_IMAGES_DIRECTORY
 mkdir -p $PREPROCESS_METADATA_DIRECTORY
 mkdir -p $LMDB_DIRECTORY
 
-#echo "Resizing and converting $(find $IMAGES_DIRECTORY -name "*.dcm" | wc -l) DICOM images to PNG format"
-#find $IMAGES_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 500x500! $PREPROCESS_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
-#echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
+echo "Resizing and converting $(find $IMAGES_DIRECTORY -name "*.dcm" | wc -l) DICOM images to PNG format"
+find $IMAGES_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 227x227! $PREPROCESS_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
+echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
 
 echo "Splitting the challenge training set into training and validation sets"
 python generate_train_val_sets.py $EXAMS_METADATA_FILENAME \
@@ -70,4 +70,4 @@ convert_imageset --backend=lmdb \
     $LMDB_DIRECTORY/val
 
 echo "Generating mean image for backgroud substraction"
-compute_image_mean $LMDB_DIRECTORY/train $LMDB_DIRECTORY/train_mean.binaryproto
+compute_image_mean $LMDB_DIRECTORY/train $PREPROCESS_DIRECTORY/mean_train.binaryproto
