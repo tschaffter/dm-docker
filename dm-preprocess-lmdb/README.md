@@ -6,5 +6,9 @@ Here, The LMDB is generated using a modified version of the tool provided by Caf
 
 This script can also be used to generate a LevelDB instead of LMDB. Simply specify `convert_imageset --backend=leveldb  ...`.
 
+## Output
+- /preprocessedData/metadata/image_labels.txt
+- /preprocessedData/lmdb/mylmdb
+
 ## Contacts
 Thomas Schaffter (thomas.schaffter@gmail.com)

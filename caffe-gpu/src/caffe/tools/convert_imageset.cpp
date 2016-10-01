@@ -8,7 +8,8 @@
 //   subfolder1/file1.JPEG 7
 //   ....
 // Modified by Thomas Schaffter to remove an image file after having added it
-// to the DB (use --rmi).
+// to the DB (use --rmi). An existing DB with the same filename is also
+// removed before generating the new one.
 
 #include <algorithm>
 #include <fstream>  // NOLINT(readability/streams)
@@ -97,6 +98,9 @@ int main(int argc, char** argv) {
 
   int resize_height = std::max<int>(0, FLAGS_resize_height);
   int resize_width = std::max<int>(0, FLAGS_resize_width);
+
+  // Delete existing DB (if it exists)
+  boost::filesystem::remove_all(argv[3]);
 
   // Create new DB
   scoped_ptr<db::DB> db(db::GetDB(FLAGS_backend));

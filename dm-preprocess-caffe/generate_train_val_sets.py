@@ -61,7 +61,7 @@ if __name__ == '__main__':
 	# Export the files
 	if not os.path.isdir(outputDir):
 		os.makedirs(outputDir)
-	metadataTrain.to_csv(os.path.join(outputDir + "exams_metadata_train.tsv"), sep="\t", na_rep='.', index=False, header=True)
-	metadataVal.to_csv(os.path.join(outputDir + "exams_metadata_val.tsv"), sep="\t", na_rep='.', index=False, header=True)
-	imagesTrain.to_csv(os.path.join(outputDir + "images_crosswalk_train.tsv"), sep="\t", na_rep='.', index=False, header=True)
-	imagesVal.to_csv(os.path.join(outputDir + "images_crosswalk_val.tsv"), sep="\t", na_rep='.', index=False, header=True)
+	metadataTrain.to_csv(os.path.join(outputDir, "exams_metadata_train.tsv"), sep="\t", na_rep='.', index=False, header=True)
+	metadataVal.to_csv(os.path.join(outputDir, "exams_metadata_val.tsv"), sep="\t", na_rep='.', index=False, header=True)
+	imagesTrain.to_csv(os.path.join(outputDir, "images_crosswalk_train.tsv"), sep="\t", na_rep='.', index=False, header=True)
+	imagesVal.to_csv(os.path.join(outputDir, "images_crosswalk_val.tsv"), sep="\t", na_rep='.', index=False, header=True)

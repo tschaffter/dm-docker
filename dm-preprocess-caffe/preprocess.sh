@@ -30,9 +30,9 @@ mkdir -p $PREPROCESS_IMAGES_DIRECTORY
 mkdir -p $PREPROCESS_METADATA_DIRECTORY
 mkdir -p $LMDB_DIRECTORY
 
-echo "Resizing and converting $(find $IMAGES_DIRECTORY -name "*.dcm" | wc -l) DICOM images to PNG format"
-find $IMAGES_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 500x500! $PREPROCESS_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
-echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
+#echo "Resizing and converting $(find $IMAGES_DIRECTORY -name "*.dcm" | wc -l) DICOM images to PNG format"
+#find $IMAGES_DIRECTORY/ -name "*.dcm" | parallel --will-cite "convert {} -resize 500x500! $PREPROCESS_IMAGES_DIRECTORY/{/.}.png" # faster than mogrify
+#echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
 
 echo "Splitting the challenge training set into training and validation sets"
 python generate_train_val_sets.py $EXAMS_METADATA_FILENAME \
@@ -41,7 +41,6 @@ python generate_train_val_sets.py $EXAMS_METADATA_FILENAME \
 	$TRAIN_SIZE \
 	$RAND_SEED
 
-exit 0
 echo "Generating image labels for train"
 python generate_image_labels.py $PREPROCESS_METADATA_DIRECTORY/exams_metadata_train.tsv \
 	$PREPROCESS_METADATA_DIRECTORY/images_crosswalk_train.tsv \
@@ -71,4 +70,4 @@ convert_imageset --backend=lmdb \
     $LMDB_DIRECTORY/val
 
 echo "Generating mean image for backgroud substraction"
-compute_image_mean $LMDB_DIRECTORY/train $LMDB_DIRECTORY/mean_train.binaryproto
+compute_image_mean $LMDB_DIRECTORY/train $LMDB_DIRECTORY/train_mean.binaryproto
