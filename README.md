@@ -16,7 +16,7 @@ Add general information and a brief description of each Docker image.
 - [x] dm-train-caffe
 - [ ] dm-train-tensorflow
 - [ ] dm-train-keras
-- (dm-train-theano)
+- [ ] dm-train-theano (optional if we already have Keras)
 
 ## TODO
 - Find bash/python logging system
