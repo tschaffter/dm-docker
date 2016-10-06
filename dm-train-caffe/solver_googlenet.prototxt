@@ -3,9 +3,9 @@
 net: "/train.prototxt"
 display: 1000
 average_loss: 40
-base_lr: 0.01
+base_lr: 0.001
 lr_policy: "step"
-stepsize: 40000
+stepsize: 20000
 gamma: 0.96
 max_iter: 40000
 momentum: 0.9
