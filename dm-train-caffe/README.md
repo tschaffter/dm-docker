@@ -10,5 +10,7 @@ Trains a basic GoogLeNet or AlexNet CNN using an LMDB file created from 70% (def
 
 ## Contacts
 Shivanthan Yohanandan (syohan@au1.ibm.com)
+
 Umar Asif (umarasif@au1.ibm.com)
+
 Antonio Jose Jimeno Yepes (antonio.jimeno@au1.ibm.com)
