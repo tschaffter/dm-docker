@@ -14,47 +14,10 @@ RUN yum update -y && yum install -y epel-release && \
     vim
 
 RUN pip install --upgrade pip \
-    nose \
-    nose_parameterized \
     pydicom
 
-# Install bleeding-edge Theano
-ENV CLONE_TAG=master
-RUN pip install --upgrade --no-deps git+http://github.com/Theano/Theano.git@$CLONE_TAG
-# Set up .theanorc for CUDA
-#RUN echo "[global]\ndevice=gpu\nfloatX=float32\noptimizer_including=cudnn\n[lib]\ncnmem=0.1\n[nvcc]\nfastmath=True" > /root/.theanorc
-
-# Install Tensorflow
 ENV TENSORFLOW_VERSION 0.11.0rc0
 RUN pip --no-cache-dir install \
     http://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-${TENSORFLOW_VERSION}-cp27-none-linux_x86_64.whl
 
-# Install Keras
-RUN pip install --upgrade keras
-
-# Set Keras configuration
-ENV KERAS_BACKEND tensorflow
-WORKDIR /root
-RUN mkdir .keras
-RUN echo '{"epsilon":1e-07,"floatx":"float32","backend":"'${KERAS_BACKEND}'"}' > .keras/keras.json
-#COPY keras.json .keras/.
-
-#ENV CAFFE_ROOT=/opt/caffe
-#WORKDIR $CAFFE_ROOT
-
-# FIXME: clone a specific git tag and use ARG instead of ENV once DockerHub supports this.
-#ENV CLONE_TAG=master
-
-#RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git .
-# Modified verion of convert_imageset to remove an image file after having added it to the DM (use --rmi).
-#COPY src/caffe/tools/convert_imageset.cpp tools/.
-#RUN for req in $(cat python/requirements.txt) pydot; do pip install $req; done && \
-#    mkdir build && cd build && \
-#    cmake -DBLAS=Open -DUSE_CUDNN=1 .. && \
-#    make -j"$(nproc)"
-
-#ENV PYCAFFE_ROOT $CAFFE_ROOT/python
-#ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
-#ENV PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH
-#RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 WORKDIR /
