@@ -1,4 +1,4 @@
-# Download and install Matlab Compiler Runtime v9.0 (2015b)
+# Download and install Matlab Runtime v9.1 (2016b)
 #
 # This docker file will configure an environment into which the Matlab compiler
 # runtime will be installed and in which stand-alone matlab routines (such as
@@ -25,9 +25,12 @@ RUN wget http://www.mathworks.com/supportfiles/downloads/R2016b/deployment_files
     unzip -q MCR_R2016b_glnxa64_installer.zip && \
     ./install -destinationFolder $MCR_ROOT -agreeToLicense yes -mode silent
 
-WORKDIR /
 RUN rm -fr /mcr-install
 
-# Configure environment variables for MCR
+# Configure environment variables for Matlab Runtime R2016b
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/mcr/v91/runtime/glnxa64:/opt/mcr/v91/bin/glnxa64:/opt/mcr/v91/sys/os/glnxa64
-#ENV XAPPLRESDIR /opt/mcr/v90/X11/app-defaults
+
+# Include hello_world compiled using Matlab R2016b Compiler
+# https://support.opensciencegrid.org/support/solutions/articles/5000660751-basics-of-compiled-matlab-applications-hello-world-example
+WORKDIR /
+COPY hello_world .
