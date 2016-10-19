@@ -13,7 +13,7 @@ docker run -it tschaffter/matlab-runtime-gpu ./hello_world
 ```
 docker build -t <name> .
 ```
-where *<name>* is the name that you want to give to the image.
+where *&lt;name&gt;* is the name that you want to give to the image.
 
 ## Contacts
 Thomas Schaffter (thomas.schaff...@gmail.com)
