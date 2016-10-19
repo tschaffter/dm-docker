@@ -31,6 +31,8 @@ RUN rm -fr /mcr-install
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/mcr/v91/runtime/glnxa64:/opt/mcr/v91/bin/glnxa64:/opt/mcr/v91/sys/os/glnxa64
 
 # Include hello_world compiled using Matlab R2016b Compiler
-# https://support.opensciencegrid.org/support/solutions/articles/5000660751-basics-of-compiled-matlab-applications-hello-world-example
 WORKDIR /
+# https://support.opensciencegrid.org/support/solutions/articles/5000660751-basics-of-compiled-matlab-applications-hello-world-example
 COPY hello_world .
+# Run the Matlab command 'gpuDevice'
+COPY gpu_devices .
