@@ -76,9 +76,9 @@ ans =
 ## Build your own Docker image
 
 ```
-docker build -t <name> .
+# docker build -t <name> .
 ```
 where `<name>` is the name that you want to give to the image.
 
 ## Contacts
-Thomas Schaffter (thomas.schaff...@gmail.com)
+Thomas Schaffter (thomas.schaffter@gmail.com)

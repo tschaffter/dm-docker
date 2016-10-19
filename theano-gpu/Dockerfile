@@ -18,12 +18,15 @@ RUN pip install --upgrade pip \
     nose_parameterized \
     pydicom
 
-
 # Install bleeding-edge Theano
 ENV CLONE_TAG=master
 RUN pip install --upgrade --no-deps git+http://github.com/Theano/Theano.git@$CLONE_TAG
 # Set up .theanorc for CUDA
-#RUN echo "[global]\ndevice=gpu\nfloatX=float32\noptimizer_including=cudnn\n[lib]\ncnmem=0.1\n[nvcc]\nfastmath=True" > /root/.theanorc
+RUN printf "[global]\ndevice=gpu\nfloatX=float32\noptimizer_including=cudnn\n[lib]\ncnmem=0.1\n[nvcc]\nfastmath=True" > /root/.theanorc
+
+WORKDIR /
+COPY src/check1.py .
+
 
 #ENV CAFFE_ROOT=/opt/caffe
 #WORKDIR $CAFFE_ROOT
