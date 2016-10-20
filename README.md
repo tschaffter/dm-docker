@@ -5,7 +5,8 @@ Add general information and a brief description of each Docker image.
 ### Base
 - [x] caffe-gpu
 - [ ] keras-gpu
-- [ ] theano-gp
+- [x] tensorflow-gpu
+- [x] theano-gp
 - [x] matlab-runtime-gpu
 
 ### Pre-processing

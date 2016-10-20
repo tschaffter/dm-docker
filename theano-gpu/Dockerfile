@@ -24,26 +24,5 @@ RUN pip install --upgrade --no-deps git+http://github.com/Theano/Theano.git@$CLO
 # Set up .theanorc for CUDA
 RUN printf "[global]\ndevice=gpu\nfloatX=float32\noptimizer_including=cudnn\n[lib]\ncnmem=0.1\n[nvcc]\nfastmath=True" > /root/.theanorc
 
-WORKDIR /
+WORKDIR /root/
 COPY src/check1.py .
-
-
-#ENV CAFFE_ROOT=/opt/caffe
-#WORKDIR $CAFFE_ROOT
-
-# FIXME: clone a specific git tag and use ARG instead of ENV once DockerHub supports this.
-#ENV CLONE_TAG=master
-
-#RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git .
-# Modified verion of convert_imageset to remove an image file after having added it to the DM (use --rmi).
-#COPY src/caffe/tools/convert_imageset.cpp tools/.
-#RUN for req in $(cat python/requirements.txt) pydot; do pip install $req; done && \
-#    mkdir build && cd build && \
-#    cmake -DBLAS=Open -DUSE_CUDNN=1 .. && \
-#    make -j"$(nproc)"
-
-#ENV PYCAFFE_ROOT $CAFFE_ROOT/python
-#ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
-#ENV PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH
-#RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
-WORKDIR /

@@ -19,5 +19,3 @@ RUN pip install --upgrade pip \
 ENV TENSORFLOW_VERSION 0.11.0rc0
 RUN pip --no-cache-dir install \
     http://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-${TENSORFLOW_VERSION}-cp27-none-linux_x86_64.whl
-
-WORKDIR /
