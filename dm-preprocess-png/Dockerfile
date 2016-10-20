@@ -15,8 +15,8 @@ RUN yum update -y && yum install -y epel-release && \
     numpy \
     scipy
 
-RUN pip install --upgrade pip \
-    pandas
+RUN pip install --upgrade pip && \
+    pip install pandas
 
 WORKDIR /
 COPY generate_image_labels.py .

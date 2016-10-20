@@ -4,7 +4,7 @@ Add general information and a brief description of each Docker image.
 ## Docker images
 ### Base
 - [x] caffe-gpu
-- [ ] keras-gpu
+- [x] keras-gpu
 - [x] tensorflow-gpu
 - [x] theano-gp
 - [x] matlab-runtime-gpu

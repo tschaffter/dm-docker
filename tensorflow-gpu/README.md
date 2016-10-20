@@ -5,7 +5,7 @@ This Docker image provides the deep learning framework [TensorFlow](https://www.
 Here the command [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) must be used instead of `docker run` to give the Docker container access to the GPUs.
 
 ```
-# nvidia-docker run -it --rm -v tschaffter/tensorflow-gpu /usr/bin/python -m tensorflow.models.image.mnist.convolutional
+# nvidia-docker run -it --rm tschaffter/tensorflow-gpu /usr/bin/python -m tensorflow.models.image.mnist.convolutional
 I tensorflow/stream_executor/dso_loader.cc:111] successfully opened CUDA library libcublas.so locally
 I tensorflow/stream_executor/dso_loader.cc:111] successfully opened CUDA library libcudnn.so locally
 I tensorflow/stream_executor/dso_loader.cc:111] successfully opened CUDA library libcufft.so locally
