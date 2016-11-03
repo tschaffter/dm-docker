@@ -1,4 +1,4 @@
-FROM nvidia/cuda:7.5-cudnn5-devel-centos7
+FROM nvidia/cuda:8.0-cudnn5-devel-centos7
 MAINTAINER Thomas Schaffter <thomas.schaffter@gmail.com>
 
 RUN yum update -y && yum install -y epel-release && \
@@ -16,6 +16,6 @@ RUN yum update -y && yum install -y epel-release && \
 RUN pip install --upgrade pip \
     pydicom
 
-ENV TENSORFLOW_VERSION 0.11.0rc0
+ENV TENSORFLOW_VERSION 0.11.0rc2
 RUN pip --no-cache-dir install \
     http://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-${TENSORFLOW_VERSION}-cp27-none-linux_x86_64.whl

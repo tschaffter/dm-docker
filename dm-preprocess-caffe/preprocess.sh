@@ -1,3 +1,4 @@
+#!/bin/bash
 # Splits the Challenge training set into a training and
 # validation sets in a format that can directly be used
 # by the deep learning framework Caffe.
@@ -13,7 +14,6 @@
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
 # Last update: 2016-09-29
-#!/bin/bash
 
 IMAGES_DIRECTORY="/trainingData"
 EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"

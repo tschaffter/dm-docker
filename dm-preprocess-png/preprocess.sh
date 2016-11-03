@@ -1,3 +1,4 @@
+#!/bin/bash
 # Resizes all the training images to the same size and 
 # saves them to PNG format using ImageMagick.
 #
@@ -9,8 +10,7 @@
 # using information from the exams metadata table (see generate_labels.py).
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-# Last update: 2016-09-27
-#!/bin/bash
+# Last update: 2016-10-20
 
 IMAGES_DIRECTORY="/trainingData"
 EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"

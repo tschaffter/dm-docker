@@ -2,7 +2,7 @@
 Add general information and a brief description of each Docker image.
 
 ## Docker images
-### Base
+### Frameworks
 - [x] caffe-gpu
 - [x] keras-gpu
 - [x] tensorflow-gpu

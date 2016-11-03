@@ -1,3 +1,4 @@
+#!/bin/bash
 # Generates a Lightning Memory-Mapped Database (LMDB).
 #
 # Tasks:
@@ -17,8 +18,7 @@
 # ...".
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-# Last update: 2016-09-27
-#!/bin/bash
+# Last update: 2016-10-20
 
 IMAGES_DIRECTORY="/trainingData"
 EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"

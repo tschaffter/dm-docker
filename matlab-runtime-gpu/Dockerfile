@@ -6,7 +6,7 @@
 #
 # See http://www.mathworks.com/products/compiler/mcr/ for more info.
 
-FROM nvidia/cuda:7.5-cudnn5-devel-centos7
+FROM nvidia/cuda:8.0-cudnn5-devel-centos7
 MAINTAINER Thomas Schaffter <thomas.schaffter@gmail.com>
 
 RUN yum update -y && yum install -y epel-release && \
