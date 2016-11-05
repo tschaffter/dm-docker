@@ -1,4 +1,5 @@
 # keras-gpu
+## Overview
 This Docker image provides the deep learning framework [Keras](https://keras.io/).
 
 Keras is a high-level neural networks library, written in Python and capable of running on top of either [TensorFlow](https://www.tensorflow.org/) or [Theano](http://deeplearning.net/software/theano/). It was developed with a focus on enabling fast experimentation. 
@@ -40,3 +41,5 @@ theano
 
 ## Contacts
 Thomas Schaffter (thomas.schaffter@gmail.com)
+
+Please direct your questions to the Discussion forum of the DM Challenge.
