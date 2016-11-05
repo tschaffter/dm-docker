@@ -1,4 +1,5 @@
 # dm-train-caffe
+## Overview
 Trains an off-the-shelf AlexNet convolution neural network (CNN) using [Caffe](http://caffe.berkeleyvision.org/).
 
 This example train an AlexNet model using the output of the pre-processing Docker image `dm-preprocess-caffe`. The required files to train a GoogLeNet model are also provided. The training is performed on one epoch (40,000 iterations) of the effective training set.

@@ -1,4 +1,5 @@
 # dm-preprocess-png
+## Overview
 Resizes all the training images to the same size and saves them to PNG.
 
 The images are processed using all the CPU cores available using [GNU Parallel](https://www.gnu.org/software/parallel/) and [ImageMagick](http://www.imagemagick.org/script/index.php). Moreover, a label file at the image level is generated using information from the exams metadata table (see `generate_labels.py`).

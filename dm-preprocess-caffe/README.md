@@ -1,4 +1,5 @@
 # dm-preprocess-caffe
+## Overview
 Splits the Challenge training set into a training and validation sets in a format that can be used directly by the deep learning framework [Caffe](http://caffe.berkeleyvision.org/).
 
 Here, the Challenge training set is split into an effective training set (train) and validation set (val). The size of the effective training set can be specified in `generate_train_val_sets.py` (default: 70% of the input data). Half of the subjects included in the train set are cancer positive subjects (idem for the val set).

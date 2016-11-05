@@ -1,4 +1,5 @@
 # dm-preprocess-png
+## Overview
 Generates a Lightning Memory-Mapped Database (LMDB) that includes all the training images.
 
 Here, the LMDB is generated using a modified version of the tool provided by Caffe, `convert_imageset`. The argument `--rmi` enables to remove an image file that has just beed added to the database. Specifying `--rmi` is required to generate LMDB file when the disk space avaiable is not enough to host two copies of the dataset (the image files and the LMDB).
