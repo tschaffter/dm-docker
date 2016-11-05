@@ -16,4 +16,7 @@ LOG=/modelState/train.log
 MODEL=/solver_alexnet.prototxt
 GPUS="all"
 
+echo "Starting Caffe AlexNet training"
 caffe train --solver=$MODEL -gpu $GPUS #2>&1 | tee $LOG &
+
+echo "Done"

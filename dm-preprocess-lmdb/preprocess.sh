@@ -48,3 +48,5 @@ convert_imageset --backend=lmdb \
     $PREPROCESS_IMAGES_DIRECTORY/ \
     $IMAGE_LABELS_FILENAME \
     $LMDB_FILENAME
+
+echo "Done"

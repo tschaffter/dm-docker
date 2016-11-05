@@ -14,7 +14,7 @@ Args:i
    seed: the random seed
 
 Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-Last update: 2016-09-29
+Last update: 2016-11-02
 """
 
 import numpy as np
@@ -39,7 +39,6 @@ if __name__ == '__main__':
 	images = pd.read_csv(imagesCrosswalkFilename, sep="\t", na_values='.')
 
 	# Convert subjectId to string
-        # TODO: remove as this will become redundant when using the Challenge data
         metadata.subjectId = metadata.subjectId.astype(str)
         images.subjectId = images.subjectId.astype(str)
 

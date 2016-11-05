@@ -1,16 +1,17 @@
 # dm-train-caffe
-## Overview
-Trains basic GoogLeNet or AlexNet convolution neural networks (CNN) found at  [Caffe](http://caffe.berkeleyvision.org/).
+Trains an off-the-shelf AlexNet convolution neural network (CNN) using [Caffe](http://caffe.berkeleyvision.org/).
 
-Tasks:
-Trains a basic GoogLeNet or AlexNet CNN using an LMDB file created from 70% (default) of the cancer positive and negative training data. Trains on one epoch (40,000 iterations) of this training data.
+This example train an AlexNet model using the output of the pre-processing Docker image `dm-preprocess-caffe`. The required files to train a GoogLeNet model are also provided. The training is performed on one epoch (40,000 iterations) of the effective training set.
+
+## Input
+- the output of the pre-processing Docker image `dm-preprocess-caffe`
 
 ## Output
 - /modelState/train_googlenet_iter40000.caffemodel
 
 ## Contacts
-Shivanthan Yohanandan (syohan@au1.ibm.com)
+Shivanthan Yohanandan (shivy.yohanandan@gmail.com)   
+Umar Asif (umarasif@au1.ibm.com)   
+Antonio Jose Jimeno Yepes (antonio.jimeno@au1.ibm.com)   
 
-Umar Asif (umarasif@au1.ibm.com)
-
-Antonio Jose Jimeno Yepes (antonio.jimeno@au1.ibm.com)
+Please direct your questions to the Discussion forum of the DM Challenge.

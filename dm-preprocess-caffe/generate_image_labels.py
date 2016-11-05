@@ -1,5 +1,5 @@
 """
-Generates a labels file at the image levels.
+Generates a labels file at the image level.
 
 Args:
    examsMetadataFilename: the filename of the exams metadata file
@@ -13,7 +13,7 @@ been diagnosed with cancer (confirmed with tissue diagnosis) within 12 months
 of the given screening mammography exam (see Challenge Questions), otherwise 0.
 
 Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-Last update: 2016-09-27
+Last update: 2016-11-02
 """
 
 import numpy as np
@@ -57,7 +57,6 @@ if __name__ == '__main__':
 	images = pd.read_csv(imagesCrosswalkFilename, sep="\t", na_values='.', usecols=fields)
 
 	# Convert subjectId to string
-	# TODO: remove as this will become redundant when using the Challenge data
 	metadata.subjectId = metadata.subjectId.astype(str)
 	images.subjectId = images.subjectId.astype(str)
 

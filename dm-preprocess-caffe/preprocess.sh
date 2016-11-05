@@ -13,12 +13,12 @@
 # - generate mean image for background substraction
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-# Last update: 2016-09-29
+# Last update: 2016-11-02
 
 IMAGES_DIRECTORY="/trainingData"
 EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"
 IMAGES_CROSSWALK_FILENAME="/metadata/images_crosswalk.tsv"
-RAND_SEED=123456
+RANDOM_SEED=123456
 
 PREPROCESS_DIRECTORY="/preprocessedData"
 PREPROCESS_IMAGES_DIRECTORY="$PREPROCESS_DIRECTORY/images"
@@ -39,7 +39,7 @@ python generate_train_val_sets.py $EXAMS_METADATA_FILENAME \
 	$IMAGES_CROSSWALK_FILENAME \
 	$PREPROCESS_METADATA_DIRECTORY \
 	$TRAIN_SIZE \
-	$RAND_SEED
+	$RANDOM_SEED
 
 echo "Generating image labels for train"
 python generate_image_labels.py $PREPROCESS_METADATA_DIRECTORY/exams_metadata_train.tsv \
@@ -71,3 +71,5 @@ convert_imageset --backend=lmdb \
 
 echo "Generating mean image for backgroud substraction"
 compute_image_mean $LMDB_DIRECTORY/train $PREPROCESS_DIRECTORY/mean_train.binaryproto
+
+echo "Done"

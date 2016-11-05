@@ -10,7 +10,7 @@
 # using information from the exams metadata table (see generate_labels.py).
 #
 # Author: Thomas Schaffter (thomas.schaff...@gmail.com)
-# Last update: 2016-10-20
+# Last update: 2016-11-02
 
 IMAGES_DIRECTORY="/trainingData"
 EXAMS_METADATA_FILENAME="/metadata/exams_metadata.tsv"
@@ -28,4 +28,7 @@ echo "PNG images have been successfully saved to $PREPROCESS_IMAGES_DIRECTORY/."
 
 echo "Generating image labels to $IMAGE_LABELS_FILENAME"
 python generate_image_labels.py $EXAMS_METADATA_FILENAME $IMAGES_CROSSWALK_FILENAME $IMAGE_LABELS_FILENAME
+# Replace the .dcm extension to .png
 sed -i 's/.dcm/.png/g' $IMAGE_LABELS_FILENAME
+
+echo "Done"
