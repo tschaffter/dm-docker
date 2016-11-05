@@ -1,4 +1,4 @@
-# Docker template images for the Digital Mammography (DM) DREAM Challenge
+# Docker images for the Digital Mammography DREAM Challenge
 ## Overview
 This repository contains the Dockerfiles required to build the example images provided for the [Digital Mammography DREAM Challenge](https://www.synapse.org/#!Synapse:syn4224222/). 
 
