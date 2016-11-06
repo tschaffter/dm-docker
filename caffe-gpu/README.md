@@ -2,7 +2,16 @@
 ## Overview
 This Docker image has the deep learning framework [Caffe](http://caffe.berkeleyvision.org/) installed and has access to available NVIDIA GPUs.
 
-## Build your own Docker image
+## Use this Docker image
+Create a Dockerfile with the following content.
+
+```
+FROM tschaffter/caffe-gpu
+
+# Insert below the instructions to install your inference method.
+```
+
+Then build your Docker image.
 
 ```
 # docker build -t <name> .

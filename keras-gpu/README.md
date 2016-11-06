@@ -22,21 +22,27 @@ I tensorflow/stream_executor/dso_loader.cc:111] successfully opened CUDA library
 tensorflow
 ```
 
-## Build your own Docker image
+## Use this Docker image
+Create a Dockerfile with the following content.
 
 ```
-# docker build -t <name> .
+FROM tschaffter/keras-gpu
+
+# Insert below the instructions to install your inference method.
+```
+
+Then build your Docker image.
+
+```
+# docker build -t <name> .
 ```
 where `<name>` is the name that you want to give to the image.
 
-## Switch the backend to Theano
-In the Dockerfile, replace `ENV KERAS_BACKEND tensorflow` by `ENV KERAS_BACKEND theano`. After building the image:
+## Set the backend to Theano
+Here, Tensorflow is used as the default backend for Keras. To set the backend to Theano, add the following line to your Dockerfile.
 
 ```
-# nvidia-docker run -it --rm tschaffter/keras-gpu /usr/bin/python -c "from keras import backend; print backend._BACKEND"
-Using Theano backend.
-Using gpu device 0: Tesla K80 (CNMeM is enabled with initial size: 10.0% of memory, cuDNN 5103)
-theano
+RUN echo '{"epsilon":1e-07,"floatx":"float32","backend":"theano"}' > .keras/keras.json
 ```
 
 ## Contacts

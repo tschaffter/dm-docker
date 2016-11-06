@@ -28,10 +28,19 @@ Used the cpu
 
 By default, the Docker image is configured to run using the GPU insteadn of the CPU (see `/root/.theanorc`).
 
-## Build your own Docker image
+## Use this Docker image
+Create a Dockerfile with the following content.
 
 ```
-# docker build -t <name> .
+FROM tschaffter/theano-gpu
+
+# Insert below the instructions to install your inference method.
+```
+
+Then build your Docker image.
+
+```
+# docker build -t <name> .
 ```
 where `<name>` is the name that you want to give to the image.
 

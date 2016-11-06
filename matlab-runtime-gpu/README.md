@@ -73,7 +73,16 @@ ans =
 ...
 ```
 
-## Build your own Docker image
+## Use this Docker image
+Create a Dockerfile with the following content.
+
+```
+FROM tschaffter/matlab-runtime-gpu
+
+# Insert below the instructions to install your inference method.
+```
+
+Then build your Docker image.
 
 ```
 # docker build -t <name> .
