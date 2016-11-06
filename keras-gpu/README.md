@@ -22,7 +22,7 @@ I tensorflow/stream_executor/dso_loader.cc:111] successfully opened CUDA library
 tensorflow
 ```
 
-## Use this Docker image
+## Build your own Docker image
 Create a Dockerfile with the following content.
 
 ```

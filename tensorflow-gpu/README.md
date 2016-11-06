@@ -36,7 +36,7 @@ Free memory: 11.13GiB
 ...
 ```
 
-## Use this Docker image
+## Build your own Docker image
 Create a Dockerfile with the following content.
 
 ```

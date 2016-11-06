@@ -73,7 +73,7 @@ ans =
 ...
 ```
 
-## Use this Docker image
+## Build your own Docker image
 Create a Dockerfile with the following content.
 
 ```

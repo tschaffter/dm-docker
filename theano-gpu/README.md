@@ -28,7 +28,7 @@ Used the cpu
 
 By default, the Docker image is configured to run using the GPU insteadn of the CPU (see `/root/.theanorc`).
 
-## Use this Docker image
+## Build your own Docker image
 Create a Dockerfile with the following content.
 
 ```
