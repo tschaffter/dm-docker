@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:0.9.0-gpu
+FROM tschaffter/tensorflow-gpu
 MAINTAINER Darvin Yi <darvinyi@stanford.edu>
 
 # Prepare for the Digital Mammography DREAM Challenge
