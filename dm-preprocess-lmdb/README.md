@@ -25,4 +25,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Contacts
 Thomas Schaffter (thomas.schaffter@gmail.com)
 
-Please direct your questions to the Discussion forum of the DM Challenge.
+Please direct your questions to the [Discussion forum of the DM Challenge](https://www.synapse.org/#!Synapse:syn4224222/discussion/default).

@@ -1,9 +1,14 @@
 # dm-train-keras
 ## Overview
-TODO
+Trains an off-the-shelf VGG convolution neural network (CNN) using [Keras](https://keras.io/) and [Theano](http://deeplearning.net/software/theano/) as backend.
 
 ## Input
-TODO
+- /trainingData/\*.dcm
+- /metadata/images\_crosswalk.tsv
+
+Note that the IT infrastructure of the Digital Mammography DREAM Challenge enable to pre-process the data separatedly from the effective training phase. Pre-processed data are cached and can then be reused for multiple training runs, thus saving the computational time alloted to each team.
+
+For an example on how to separate pre-processing and training, please check out the example [dm-train-caffe](https://github.com/tschaffter/dm-docker/tree/master/dm-train-caffe).
 
 ## Output
 TODO: Generate prediction file

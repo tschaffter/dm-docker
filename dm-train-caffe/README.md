@@ -20,4 +20,4 @@ Shivanthan Yohanandan (shivy.yohanandan@gmail.com)
 Umar Asif (umarasif@au1.ibm.com)   
 Antonio Jose Jimeno Yepes (antonio.jimeno@au1.ibm.com)   
 
-Please direct your questions to the Discussion forum of the DM Challenge.
+Please direct your questions to the [Discussion forum of the DM Challenge](https://www.synapse.org/#!Synapse:syn4224222/discussion/default).
