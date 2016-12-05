@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo "Starting Keras VGG training"
-pytho /KerasExample.py
+python /KerasExample.py
 
 echo "Done"

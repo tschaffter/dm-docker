@@ -21,9 +21,7 @@ np.random.seed(1337)  # for reproducibility
 
 def super_print(statement, f):
     """
-    This basically prints everything in statement.
-    We'll add a new line character for the output file.
-    We'll just use print for the output.
+    Print statements
     INPUTS:
     - statement: (string) the string to print.
     - f: (opened file) this is the output file object to print to
@@ -33,7 +31,7 @@ def super_print(statement, f):
     f.write(statement + '\n')
     return 0
 
-def create_data_splits(path_csv_crosswalk, path_csv_metadata):
+def create_data_splits(path_csv_crosswalk, path_csv_metadata, opts):
     """
     Goes through data folder and divides train/val.
     INPUTS:
@@ -68,8 +66,6 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata):
             else:
                 dict_tuple_to_cancer[(row[0].strip(), 'R')] = int(row[4])
 
-
-    # Alright, now, let's connect those dictionaries together...
     X_tot = []
     Y_tot = []
     idx = 0
@@ -78,14 +74,20 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata):
         idx = idx + 1
         X_tot.append(img_name)
         Y_tot.append(dict_tuple_to_cancer[dict_img_to_patside[img_name]])
-    # Making train/val split and returning.
-    X_tr, X_te, Y_tr, Y_te = train_test_split(X_tot, Y_tot, test_size=0.1)
-    return X_tr, X_te, Y_tr, Y_te
+		
+    X_tr, X_te, Y_tr, Y_te = train_test_split(X_tot, Y_tot, test_size=opts.splitRatio)
+
+    y_train = np.asarray(Y_tr).reshape(len(Y_tr), 1)
+    y_test = np.asarray(Y_te).reshape(len(Y_te), 1)
+    y_train = np_utils.to_categorical(y_train)
+    y_test = np_utils.to_categorical(y_test)
+
+    return X_tr, X_te, y_train, y_test, dict_img_to_patside
 
 
 def read_in_one_image(path_img, name_img, matrix_size, data_aug=False):
     """
-    Load dicoms.
+    Loads dicoms.
     INPUTS:
     - path_img: (string) path to the data
     - name_img: (string) name of the image e.g. '123456.dcm'
@@ -103,7 +105,7 @@ def read_in_one_image(path_img, name_img, matrix_size, data_aug=False):
 	
 def GenerateDataSet(X_tr, X_te, opts):
     """
-    Load Dicom images.
+    Load Dicom images and resize them to netwrok input size
         INPUTS:
         - X_tr: (list of strings) training image names
         - X_te: (list of strings) validation image names
@@ -114,19 +116,19 @@ def GenerateDataSet(X_tr, X_te, opts):
     X_testResized = np.empty((len(X_te), 1, opts.matrix_size, opts.matrix_size))
 
     for idxTr,dicomImageTr in enumerate(X_tr):
-        X_trainResized[idxTr] = read_in_one_image("trainingData", dicomImageTr, opts.matrix_size, data_aug=False)
+        X_trainResized[idxTr] = read_in_one_image(opts.path_data, dicomImageTr, opts.matrix_size, data_aug=False)
         print idxTr
 
     for idxTe, dicomImageTe in enumerate(X_te):
-        X_testResized[idxTe] = read_in_one_image("trainingData", dicomImageTe, opts.matrix_size, data_aug=False)
+        X_testResized[idxTe] = read_in_one_image(opts.path_data, dicomImageTe, opts.matrix_size, data_aug=False)
         print idxTe
 
     return X_trainResized, X_testResized
 
 
-def train_net(X_tr, X_te, Y_tr, Y_te, opts,f):
+def train_net(X_tr, X_te, Y_tr, Y_te, opts, dict_img_to_patside, testDicoms, f):
     """
-    Training of the net.  All we need is data names and parameters.
+    Training of the net.  VGG-16 architecture
     INPUTS:
     - X_tr: (list of strings) training image names
     - X_te: (list of strings) validation image names
@@ -136,6 +138,7 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts,f):
     f: (opened file) for output writing
     """
     # Setting the size and number of channels of input.
+
     matrix_size = opts.matrix_size
 
     model = Sequential()
@@ -191,25 +194,40 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts,f):
     super_print(statement, f)
 
     model.save(opts.model)
-    return 0
+
+    # Predict test set (Probabilities):
+    predictions = model.predict(X_te)
+ 
+    # Save predictions (SubjectID, Laterality, Confidence)
+    with open(opts.predictions + '/' + 'predictions.csv', 'wb') as csvfile:
+    	spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow(['SubjectID', 'Laterality', 'Confidence'])
+    	idxPredict = 0	
+    	for fileName in (testDicoms):
+			subLit = dict_img_to_patside[fileName]
+			spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)						
+			spamwriter.writerow([subLit[0],subLit[1], predictions[idxPredict]])
+			idxPredict  = idxPredict + 1
+			
 
 def main(args):
     """
-    Main Function to do deep learning using tensorflow on pilot.
+    Main Function to do deep learning using Keras on pilot set.
     INPUTS:
     - args: (list of strings) command line arguments
     """
     # Setting up reading of command line options, storing defaults if not provided.
-    pathPrefix = ""
-    # Change back to .
+    pathPrefix = "./"
+
     parser = argparse.ArgumentParser(description = "Do deep learning!")
-    parser.add_argument("--pf", dest="path_data", type=str, default=pathPrefix + "/trainingData")
+    parser.add_argument("--pf", dest="path_data", type=str, default=pathPrefix + "trainingData")
     parser.add_argument("--csv1", dest="csv1", type=str, default=pathPrefix + "metadata/images_crosswalk.tsv")
+    parser.add_argument("--splitRatio", dest="splitRatio", type=str, default=0.1)
     parser.add_argument("--csv2", dest="csv2", type=str, default=pathPrefix + "metadata/exams_metadata.tsv")
     parser.add_argument("--model", dest="model", type=str, default=pathPrefix + "modelState/model.h5")
     parser.add_argument("--lr", dest="lr", type=float, default=0.001)
     parser.add_argument("--reg", dest="reg", type=float, default=0.00001)
-    parser.add_argument("--outtxt", dest="outtxt", type=str, default=pathPrefix + "output/out.txt")
+    parser.add_argument("--predictions", dest="predictions", type=str, default=pathPrefix + "output")
     parser.add_argument("--decay", dest="decay", type=float, default=1.0)
     parser.add_argument("--momentum", dest="momentum", type=float, default=0.9)
     parser.add_argument("--dropout", dest="dropout", type=float, default=0.5)
@@ -217,7 +235,7 @@ def main(args):
     parser.add_argument("--nClasses", dest="nClasses", type=int, default=2)
     parser.add_argument("--batchSize", dest="batchSize", type=int, default=128)
     parser.add_argument("--nEpochs", dest="nEpochs", type=int, default=1)
-    parser.add_argument("--out", dest="output", type=str, default=pathPrefix + "modelState/out_train.txt")
+    parser.add_argument("--output", dest="output", type=str, default=pathPrefix + "modelState/out_train.txt")
 
     opts = parser.parse_args(args[1:])
     # Setting up the output file.
@@ -226,17 +244,12 @@ def main(args):
     f = open(opts.output, 'w')
     path_csv_crosswalk = opts.csv1
     path_csv_metadata = opts.csv2
-    path_csv_test = opts.csv1
 
-    X_train, X_test, y_train, y_test = create_data_splits(path_csv_crosswalk, path_csv_metadata)
-    y_train = np.asarray(y_train).reshape(len(y_train),1)
-    y_test = np.asarray(y_test).reshape(len(y_test),1)
-    y_train = np_utils.to_categorical(y_train)
-    y_test = np_utils.to_categorical(y_test)
+    X_trainNames, X_testNames, y_train, y_test, dict_img_to_patside = create_data_splits(path_csv_crosswalk, path_csv_metadata, opts)
 
-    X_train,X_test =  GenerateDataSet(X_train, X_test, opts)
+    X_train,X_test =  GenerateDataSet(X_trainNames, X_testNames, opts)
 
-    train_net(X_train, X_test, y_train, y_test, opts, f)
+    train_net(X_train, X_test, y_train, y_test, opts, dict_img_to_patside, X_testNames, f)
     f.close()
     return 0
 
