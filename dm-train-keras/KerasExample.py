@@ -19,6 +19,7 @@ from keras import backend as K
 from keras.optimizers import SGD
 np.random.seed(1337)  # for reproducibility
 
+
 def super_print(statement, f):
     """
     Print statements
@@ -140,7 +141,8 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts, dict_img_to_patside, testDicoms, f):
     # Setting the size and number of channels of input.
 
     matrix_size = opts.matrix_size
-
+	
+    K.set_image_dim_ordering('th')
     model = Sequential()
     model.add(ZeroPadding2D((1,1),input_shape=(1,matrix_size,matrix_size)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
@@ -217,17 +219,17 @@ def main(args):
     - args: (list of strings) command line arguments
     """
     # Setting up reading of command line options, storing defaults if not provided.
-    pathPrefix = "./"
+    pathPrefix = ""
 
     parser = argparse.ArgumentParser(description = "Do deep learning!")
-    parser.add_argument("--pf", dest="path_data", type=str, default=pathPrefix + "trainingData")
-    parser.add_argument("--csv1", dest="csv1", type=str, default=pathPrefix + "metadata/images_crosswalk.tsv")
+    parser.add_argument("--pf", dest="path_data", type=str, default=pathPrefix + "/trainingData")
+    parser.add_argument("--csv1", dest="csv1", type=str, default=pathPrefix + "/metadata/images_crosswalk.tsv")
     parser.add_argument("--splitRatio", dest="splitRatio", type=str, default=0.1)
-    parser.add_argument("--csv2", dest="csv2", type=str, default=pathPrefix + "metadata/exams_metadata.tsv")
-    parser.add_argument("--model", dest="model", type=str, default=pathPrefix + "modelState/model.h5")
+    parser.add_argument("--csv2", dest="csv2", type=str, default=pathPrefix + "/metadata/exams_metadata.tsv")
+    parser.add_argument("--model", dest="model", type=str, default=pathPrefix + "/modelState/model.h5")
     parser.add_argument("--lr", dest="lr", type=float, default=0.001)
     parser.add_argument("--reg", dest="reg", type=float, default=0.00001)
-    parser.add_argument("--predictions", dest="predictions", type=str, default=pathPrefix + "output")
+    parser.add_argument("--predictions", dest="predictions", type=str, default=pathPrefix + "/output")
     parser.add_argument("--decay", dest="decay", type=float, default=1.0)
     parser.add_argument("--momentum", dest="momentum", type=float, default=0.9)
     parser.add_argument("--dropout", dest="dropout", type=float, default=0.5)
@@ -235,7 +237,7 @@ def main(args):
     parser.add_argument("--nClasses", dest="nClasses", type=int, default=2)
     parser.add_argument("--batchSize", dest="batchSize", type=int, default=128)
     parser.add_argument("--nEpochs", dest="nEpochs", type=int, default=1)
-    parser.add_argument("--output", dest="output", type=str, default=pathPrefix + "modelState/out_train.txt")
+    parser.add_argument("--output", dest="output", type=str, default=pathPrefix + "/modelState/out_train.txt")
 
     opts = parser.parse_args(args[1:])
     # Setting up the output file.
