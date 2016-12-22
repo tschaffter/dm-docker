@@ -19,7 +19,6 @@ from keras import backend as K
 from keras.optimizers import SGD
 np.random.seed(1337)  # for reproducibility
 
-
 def super_print(statement, f):
     """
     Print statements
@@ -78,10 +77,12 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata, opts):
 		
     X_tr, X_te, Y_tr, Y_te = train_test_split(X_tot, Y_tot, test_size=opts.splitRatio)
 
-    y_train = np.asarray(Y_tr).reshape(len(Y_tr), 1)
-    y_test = np.asarray(Y_te).reshape(len(Y_te), 1)
-    y_train = np_utils.to_categorical(y_train)
-    y_test = np_utils.to_categorical(y_test)
+    y_train = np.asarray(Y_tr).reshape(-1, 1)
+    y_test = np.asarray(Y_te).reshape(-1, 1)
+    #y_train = np.asarray(Y_tr)
+    #y_test = np.asarray(Y_te)
+    #y_train = np_utils.to_categorical(y_train)
+    #y_test = np_utils.to_categorical(y_test)
 
     return X_tr, X_te, y_train, y_test, dict_img_to_patside
 
@@ -141,10 +142,9 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts, dict_img_to_patside, testDicoms, f):
     # Setting the size and number of channels of input.
 
     matrix_size = opts.matrix_size
-	
-    K.set_image_dim_ordering('th')
+
     model = Sequential()
-    model.add(ZeroPadding2D((1,1),input_shape=(1,matrix_size,matrix_size)))
+    model.add(ZeroPadding2D((1,1),input_shape=(1, matrix_size,matrix_size)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
     model.add(ZeroPadding2D((1,1)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
@@ -186,9 +186,10 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts, dict_img_to_patside, testDicoms, f):
     model.add(Dense(4096, activation='relu'))
     model.add(Dropout(opts.dropout))
     model.add(Dense(opts.nClasses, activation='softmax'))
-	
+
+
     sgd = SGD(lr=opts.lr, decay=opts.decay , momentum=opts.momentum, nesterov=True)
-    model.compile(loss='mean_squared_error', optimizer=sgd, metrics=['accuracy'])
+    model.compile(loss='sparse_categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     model.fit(X_tr, Y_tr, batch_size=opts.batchSize, nb_epoch=opts.nEpochs, verbose=1, validation_data=(X_te, Y_te))
     score = model.evaluate(X_te, Y_te, verbose=0)
 
@@ -196,22 +197,7 @@ def train_net(X_tr, X_te, Y_tr, Y_te, opts, dict_img_to_patside, testDicoms, f):
     super_print(statement, f)
 
     model.save(opts.model)
-
-    # Predict test set (Probabilities):
-    predictions = model.predict(X_te)
- 
-    # Save predictions (SubjectID, Laterality, Confidence)
-    with open(opts.predictions + '/' + 'predictions.csv', 'wb') as csvfile:
-    	spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        spamwriter.writerow(['SubjectID', 'Laterality', 'Confidence'])
-    	idxPredict = 0	
-    	for fileName in (testDicoms):
-			subLit = dict_img_to_patside[fileName]
-			spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)						
-			spamwriter.writerow([subLit[0],subLit[1], predictions[idxPredict]])
-			idxPredict  = idxPredict + 1
 			
-
 def main(args):
     """
     Main Function to do deep learning using Keras on pilot set.
@@ -229,13 +215,13 @@ def main(args):
     parser.add_argument("--model", dest="model", type=str, default=pathPrefix + "/modelState/model.h5")
     parser.add_argument("--lr", dest="lr", type=float, default=0.001)
     parser.add_argument("--reg", dest="reg", type=float, default=0.00001)
-    parser.add_argument("--predictions", dest="predictions", type=str, default=pathPrefix + "/output")
+    parser.add_argument("--predictions", dest="predictions", type=str, default=pathPrefix + "/modelState")
     parser.add_argument("--decay", dest="decay", type=float, default=1.0)
     parser.add_argument("--momentum", dest="momentum", type=float, default=0.9)
     parser.add_argument("--dropout", dest="dropout", type=float, default=0.5)
-    parser.add_argument("--ms", dest="matrix_size", type=int, default=224)
+    parser.add_argument("--ms", dest="matrix_size", type=int, default=150)
     parser.add_argument("--nClasses", dest="nClasses", type=int, default=2)
-    parser.add_argument("--batchSize", dest="batchSize", type=int, default=128)
+    parser.add_argument("--batchSize", dest="batchSize", type=int, default=4)
     parser.add_argument("--nEpochs", dest="nEpochs", type=int, default=1)
     parser.add_argument("--output", dest="output", type=str, default=pathPrefix + "/modelState/out_train.txt")
 
