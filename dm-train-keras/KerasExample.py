@@ -70,7 +70,6 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata, opts):
     Y_tot = []
     idx = 0
     for img_name in dict_img_to_patside:
-        print idx
         idx = idx + 1
         X_tot.append(img_name)
         Y_tot.append(dict_tuple_to_cancer[dict_img_to_patside[img_name]])
@@ -79,10 +78,6 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata, opts):
 
     y_train = np.asarray(Y_tr).reshape(-1, 1)
     y_test = np.asarray(Y_te).reshape(-1, 1)
-    #y_train = np.asarray(Y_tr)
-    #y_test = np.asarray(Y_te)
-    #y_train = np_utils.to_categorical(y_train)
-    #y_test = np_utils.to_categorical(y_test)
 
     return X_tr, X_te, y_train, y_test, dict_img_to_patside
 
@@ -116,14 +111,13 @@ def GenerateDataSet(X_tr, X_te, opts):
 
     X_trainResized = np.empty((len(X_tr), 1, opts.matrix_size, opts.matrix_size))
     X_testResized = np.empty((len(X_te), 1, opts.matrix_size, opts.matrix_size))
-
+  
+    print "Load Images"
     for idxTr,dicomImageTr in enumerate(X_tr):
         X_trainResized[idxTr] = read_in_one_image(opts.path_data, dicomImageTr, opts.matrix_size, data_aug=False)
-        print idxTr
 
     for idxTe, dicomImageTe in enumerate(X_te):
         X_testResized[idxTe] = read_in_one_image(opts.path_data, dicomImageTe, opts.matrix_size, data_aug=False)
-        print idxTe
 
     return X_trainResized, X_testResized
 
