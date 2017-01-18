@@ -86,8 +86,14 @@ def create_data_splits(path_csv_crosswalk, path_csv_metadata):
             if counter == 0:
                 counter += 1
                 continue
-            dict_tuple_to_cancer[(row[0].strip(), 'L')] = int(row[3])
-            dict_tuple_to_cancer[(row[0].strip(), 'R')] = int(row[4])
+            cancerL = row[3]
+            cancerR = row[4]
+            if cancerL == '.':
+                cancerL = '0'
+            if cancerR == '.':
+                cancerR = '0'
+            dict_tuple_to_cancer[(row[0].strip(), 'L')] = int(cancerL)
+            dict_tuple_to_cancer[(row[0].strip(), 'R')] = int(cancerR)
     # Alright, now, let's connect those dictionaries together...
     X_tot = []
     Y_tot = []
@@ -164,11 +170,12 @@ def conv2d(l_input, filt_size, filt_num, stride=1, alpha=0.1, name="conv2d", nor
         W = tf.get_variable("W", weight_shape, initializer=tf.random_normal_initializer(stddev=std))
     tf.add_to_collection("reg_variables", W)
     conv_layer = tf.nn.conv2d(l_input, W, strides=[1, stride, stride, 1], padding='SAME')
+    norm_layer = conv_layer
     # Normalization
-    if norm=="bn":
-        norm_layer = tflearn.layers.normalization.batch_normalization(conv_layer, name=(name+"_batch_norm"), decay=0.9)
-    elif norm=="lrn":
-        norm_layer = tflearn.layers.normalization.local_response_normalization(conv_layer)
+    #if norm=="bn":
+    #    norm_layer = tflearn.layers.normalization.batch_normalization(conv_layer, name=(name+"_batch_norm"), decay=0.9)
+    #elif norm=="lrn":
+    #    norm_layer = tflearn.layers.normalization.local_response_normalization(conv_layer)
     # ReLU
     relu_layer = tf.maximum(norm_layer, norm_layer*alpha)
     return relu_layer    
@@ -230,8 +237,9 @@ def dense(l_input, hidden_size, keep_prob, alpha=0.1, name="dense"):
         W = tf.get_variable("W", weight_shape, initializer=tf.random_normal_initializer(stddev=std))
     tf.add_to_collection("reg_variables", W)
     affine_layer = tf.matmul(reshape_layer, W)
+    norm_layer = affine_layer
     # Batch Normalization
-    norm_layer = tflearn.layers.normalization.batch_normalization(affine_layer, name=(name+"_batch_norm"), decay=0.9)
+    #norm_layer = tflearn.layers.normalization.batch_normalization(affine_layer, name=(name+"_batch_norm"), decay=0.9)
     # Dropout
     dropout_layer = tf.nn.dropout(norm_layer, keep_prob)
     # ReLU
@@ -462,7 +470,7 @@ def test_out(sess, list_dims, list_placeholders, list_operations, X_te, opts):
     dataXX = np.zeros((1, matrix_size, matrix_size, num_channels), dtype=np.float32)
     # Running through the images.
     f = open(opts.outtxt, 'w')
-    statement = 'subjectID' + '\t' + 'laterality' + '\t' + 'prediction'
+    statement = 'subjectID' + '\t' + 'laterality' + '\t' + 'confidence'
     super_print(statement, f)
     for iter_data in range(len(X_te)):
         id_iter, lat_iter, img_iter = X_te[iter_data]
