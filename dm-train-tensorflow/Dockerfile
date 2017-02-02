@@ -10,5 +10,4 @@ RUN pip install tflearn #git+https://github.com/tflearn/tflearn.git
 WORKDIR /
 COPY DREAM_DM_starter_tf.py .
 COPY train.sh .
-COPY test.sh .
-COPY score_sc1.sh .
+COPY sc1_infer.sh .
